@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>PDX.PBOT.App.API</AssemblyName>
+    <PackageId>PDX.PBOT.App.API</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
