@@ -9,7 +9,7 @@ namespace PDX.PBOT.App.Data.Repositories.Implementations
 	public abstract class BaseRepository<T> : IRepository<T>
 		where T : class
 	{
-		private readonly AppContext Context;
+		protected readonly AppContext Context;
 
 		public BaseRepository(AppContext context)
 		{
