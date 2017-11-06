@@ -7,7 +7,7 @@ namespace PDX.PBOT.App.Data.Repositories.Implementations
 {
 	public class LookupRepository : BaseRepository<Lookup>, ILookupRepository
 	{
-		public LookupRepository(AppContext context) : base(context)
+		public LookupRepository(AppDbContext context) : base(context)
 		{ }
 
 		public Lookup ReadSync(int id)

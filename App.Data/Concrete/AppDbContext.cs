@@ -7,13 +7,13 @@ using PDX.PBOT.App.Data.Options;
 
 namespace PDX.PBOT.App.Data.Concrete
 {
-	public partial class AppContext : DbContext
+	public partial class AppDbContext : DbContext
 	{
 		private readonly AppStoreOptions StoreOptions;
 		public DbSet<Lookup> Lookups { get; set; }
 		public DbSet<Content> Contents { get; set; }
 
-		public AppContext(DbContextOptions<AppContext> options, AppStoreOptions storeOptions) : base(options)
+		public AppDbContext(DbContextOptions<AppDbContext> options, AppStoreOptions storeOptions) : base(options)
 		{
 			if (storeOptions == null) throw new ArgumentNullException(nameof(storeOptions));
 			StoreOptions = storeOptions;

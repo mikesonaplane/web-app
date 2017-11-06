@@ -8,7 +8,7 @@ namespace PDX.PBOT.App.Data.Repositories.Implementations
 {
 	public class ContentRepository : BaseRepository<Content>, IContentRepository
 	{
-		public ContentRepository(AppContext context) : base(context)
+		public ContentRepository(AppDbContext context) : base(context)
 		{}
 	}
 }

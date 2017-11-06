@@ -33,7 +33,7 @@ namespace PDX.PBOT.App.API
 
 			services
 				.AddEntityFrameworkSqlServer()
-				.AddDbContext<Data.Concrete.AppContext>((serviceProvider, options) =>
+				.AddDbContext<Data.Concrete.AppDbContext>((serviceProvider, options) =>
 					options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(migrationsAssembly))
 						.UseInternalServiceProvider(serviceProvider));
 
