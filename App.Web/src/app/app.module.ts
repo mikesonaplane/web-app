@@ -6,10 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
-import { ContentComponent } from './components/content/content.component';
-import { LookupComponent } from './components/lookup/lookup.component';
+import { ContentComponent } from './components/admin/content/content.component';
+import { LookupComponent } from './components/admin/lookup/lookup.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContentListComponent } from './components/content-list/content-list.component';
+import { ContentService } from './services/content.service';
+import { LookupService } from './services/lookup.service';
+import { AdminComponent } from './components/admin/admin.component';
+import { SideMenuComponent } from './components/admin/sidemenu/sidemenu.component';
+import { LookupListComponent } from './components/admin/lookup-list/lookup-list.component';
 
 @NgModule({
   declarations: [
@@ -18,25 +23,69 @@ import { ContentListComponent } from './components/content-list/content-list.com
     ContentComponent,
     LookupComponent,
     HomeComponent,
-    ContentListComponent
+    ContentListComponent,
+    AdminComponent,
+    SideMenuComponent,
+    LookupListComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpModule,
     RouterModule.forRoot([
         { path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
-        { path: 'content', component: ContentListComponent },
-        { path: 'content/:id', component: ContentComponent },
+        { path: 'admin', component: AdminComponent,
+          children: [
+            {
+              path: '',
+              redirectTo: 'lookup/new',
+              pathMatch: 'full'
+            },
+            {
+              path: '',
+              outlet: 'sidemenu',
+              component: SideMenuComponent
+            },
+            {
+              path: 'content/new',
+              component: ContentComponent
+            },
+            {
+              path: 'lookup',
+              children: [
+                {
+                  path: '',
+                  component: LookupListComponent
+                },
+                {
+                  path: ':id',
+                  component: LookupComponent
+                },
+                {
+                  path: 'new',
+                  component: LookupComponent
+                }
+              ]
+            }
+          ]
+        },
+        { path: 'content', component: ContentListComponent,
+          children: [
+            { path: ':id', component: ContentComponent }
+          ]
+        },
         { path: 'lookup/:id', component: LookupComponent },
         { path: '**', redirectTo: 'home' }
     ])
   ],
   providers: [
-    { provide: 'BASE_URL', useFactory: getBaseUrl }
+    { provide: 'BASE_URL', useFactory: getBaseUrl },
+    ContentService,
+    LookupService
   ],
   bootstrap: [
-    AppComponent,
-    NavmenuComponent
+    AppComponent
   ]
 })
 export class AppModule { }

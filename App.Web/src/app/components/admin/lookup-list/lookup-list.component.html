@@ -1,0 +1,24 @@
+<h1>Lookup List</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!lookups">
+  <em>Loading...</em>
+</p>
+
+<table class='table' *ngIf="lookups">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lookup of lookups">
+      <td>{{ lookup.id }}</td>
+      <td>{{ lookup.name }}</td>
+      <td><button>Edit</button></td>
+    </tr>
+  </tbody>
+</table>
