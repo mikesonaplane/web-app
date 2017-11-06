@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    build: web.dockerfile
+    ports:
+      - 80:80
+  api:
+    build: api.dockerfile
+    restart: always
