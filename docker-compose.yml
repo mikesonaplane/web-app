@@ -2,9 +2,11 @@ version: '3'
 
 services:
   web:
-    build: web.dockerfile
+    build: App.Web
     ports:
       - 80:80
+    # volumes:
+    #   - ./App.Web/dist:/usr/share/nginx/html
   api:
-    build: api.dockerfile
+    build: App.API
     restart: always

@@ -1,6 +1,6 @@
 FROM microsoft/aspnetcore:2.0
 WORKDIR /app
-COPY ./App.API/bin/Debug/netcoreapp2.0/publish /app
+COPY ./bin/Debug/netcoreapp2.0/publish /app
 ENV ASPNETCORE_URLS http://*:3333
 
 CMD ["dotnet", "PDX.PBOT.App.API.dll"]
