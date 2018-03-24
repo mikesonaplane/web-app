@@ -2,11 +2,11 @@ version: '3'
 
 services:
   web:
-    build: App.Web
+    image: nginx:latest
     ports:
       - 80:80
-    # volumes:
-    #   - ./App.Web/dist:/usr/share/nginx/html
+    volumes:
+      - ./App.Web/dist:/usr/share/nginx/html
   api:
     build: App.API
     restart: always
