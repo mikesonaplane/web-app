@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore:2.0
+FROM microsoft/aspnetcore
 WORKDIR /app
 COPY ./bin/Debug/netcoreapp2.0/publish /app
 ENV ASPNETCORE_URLS http://*:3333
