@@ -5,14 +5,16 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PDX.PBOT.App.Data.Concrete;
 using PDX.PBOT.App.Data.Options;
+using PDX.PBOT.App.Data.Repositories.Interfaces;
+using PDX.PBOT.App.Data.Repositories.Implementations;
 
 namespace PDX.PBOT.App.API
 {
@@ -35,10 +37,29 @@ namespace PDX.PBOT.App.API
 			services.AddSingleton(storeOptions);
 
 			services
-				.AddEntityFrameworkSqlServer()
-				.AddDbContext<Data.Concrete.AppDbContext>((serviceProvider, options) =>
-					options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(migrationsAssembly))
-						.UseInternalServiceProvider(serviceProvider));
+				.AddEntityFrameworkInMemoryDatabase()
+				.AddDbContext<AppDbContext>( options => 
+					options.UseInMemoryDatabase("app"));
+
+            // services
+            //     .AddEntityFrameworkNpgsql()
+            //     .AddDbContext<AppDbContext>(
+            //         options => 
+            //             options.UseNpgsql(
+            //                 connectionString, 
+            //                 builder => 
+            //                     builder.MigrationsAssembly(migrationsAssembly)
+            //             )
+            //     );
+
+			// services
+			// 	.AddEntityFrameworkSqlServer()
+			// 	.AddDbContext<Data.Concrete.AppDbContext>((serviceProvider, options) =>
+			// 		options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(migrationsAssembly))
+			// 			.UseInternalServiceProvider(serviceProvider));
+            
+            services.AddTransient<ILookupRepository, LookupRepository>();
+            services.AddTransient<IContentRepository, ContentRepository>();
 
 			services.AddMvc();
 		}
@@ -50,12 +71,7 @@ namespace PDX.PBOT.App.API
 			{
 				app.UseDeveloperExceptionPage();
 			}
-            else
-            {
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
 			app.UseMvc();
 		}
 	}
