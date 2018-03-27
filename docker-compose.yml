@@ -9,4 +9,6 @@ services:
       - ./App.Web/dist:/usr/share/nginx/html
   api:
     build: App.API
+    ports:
+      - 3333:3333
     restart: always
